@@ -2,11 +2,22 @@ module SessionsHelper
 
   # Logs in the given user.
   def log_in(user)
-      session[:user_id] = user.id
+    if(user.class.to_s == "Admin")
+      session[:user_id] = "a"+user.id.to_s
+    else
+      session[:user_id] = "m"+user.id.to_s
+    end
   end
   def current_user
-  	@current_user ||= Member.find_by(id: session[:user_id])
-    @current_user ||= Admin.find_by(id: session[:user_id])
+    if(session[:user_id]==nil)
+      @current_user = nil
+    elsif session[:user_id][0] == "m"
+      s = session[:user_id].to_s
+  	  @current_user = Member.find_by(id: s[1..s.length])
+    else
+      s = session[:user_id].to_s
+      @current_user = Admin.find_by(id: s[1..s.length])
+    end
   end
  # def current_admin
   #  @current_admin ||= Admin.find_by(id: session[:user_id])

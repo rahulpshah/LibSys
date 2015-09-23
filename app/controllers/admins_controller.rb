@@ -1,13 +1,13 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
-  #before_action :is_admin?
+  before_action :is_admin?
 
   # GET /admins
   # GET /admins.json
   def is_admin?
     if current_user.class.to_s != 'Admin'
-      flash[:privileges]="Not enough privelages"
-      #redirect_to root_path
+      flash[:privileges]="Not enough privileges"
+      redirect_to root_path
     end
   end
   def index
@@ -73,7 +73,7 @@ class AdminsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
-      @admin = Admin.find(params[:id])
+      @admin = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
