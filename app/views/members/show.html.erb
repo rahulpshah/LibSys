@@ -15,6 +15,6 @@
   <strong>Password:</strong>
   <%= @member.password %>
 </p>
-
+<%= link_to "List of Books", books_path %>
 <%= link_to 'Edit', edit_member_path(@member) %> |
-<%= link_to 'Back', members_path %>
+<%= link_to 'Home',  root_path %>

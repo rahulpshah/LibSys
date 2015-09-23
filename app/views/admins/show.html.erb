@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= current_user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= current_user.email %>
+</p>
+
+<p>
+
+  <strong>Password:</strong>
+  <% adm = Admin.find(params[:id])%>
+  <%=puts current_user.name %>
+  <%= puts adm.name%>
+  <%if current_user.name.eql? adm.name %>
+  	<%= current_user.password %>
+  <%else%>
+  	<%= current_user.password.split.map {|x| x='*'}.to_s %>
+  <%end%>
+</p>
+
+<p><%= link_to 'Edit', edit_admin_path(@admin) %></p>
+<p><%= link_to 'Back', admins_path %></p>
+<p><%= link_to 'All admins', admins_path %></p>
+<p><%= link_to 'Add admin', new_admin_path %></p>
+
