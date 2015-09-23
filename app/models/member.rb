@@ -1,5 +1,6 @@
 class Member < ActiveRecord::Base
-	def is_admin?
-		return respond_to?(:give_rights)
-	end
+	validates :email, :email_format => { :message => "not in correct format" }
+	validates_uniqueness_of :email
+	validates :password, length: 6..20
+	validates :name, presence: true
 end

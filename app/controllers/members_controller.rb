@@ -1,8 +1,13 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
-
-  # GET /members
-  # GET /members.json
+  before_action :checkauth?, only: :index
+  
+  def checkauth?
+    unless is_admin?
+      flash[:privileges]="Not enough privileges"
+      redirect_to root_path
+    end
+  end
   def signup
     
     @member = Member.new

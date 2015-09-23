@@ -1,6 +1,5 @@
-<%= @title = "Signup" %>
-<h1>New Member</h1>
-
+<% content_for :title, "Title for specific page" %>
+<h1>Sign Up</h1>
 <%= render 'signup' %>
-<%= puts root_path %>
-<%= link_to 'Back', "/" %>
+<p>Already a member? <%= link_to "Login" , login_path %> </p>
+

@@ -1,15 +1,17 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
-  before_action :is_admin?
-
-  # GET /admins
-  # GET /admins.json
-  def is_admin?
-    if current_user.class.to_s != 'Admin'
+  before_action :get_admin, only: [:show, :edit, :update, :destroy]
+  before_action :checkauth?
+  
+  def checkauth?
+    unless is_admin?
       flash[:privileges]="Not enough privileges"
       redirect_to root_path
     end
   end
+
+  # GET /admins
+  # GET /admins.json
+  
   def index
     h = Hash.new
     h[:name]=current_user.name
@@ -19,6 +21,7 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
+    @admin
   end
 
   # GET /admins/new
@@ -63,17 +66,20 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    @admin.destroy
-    respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
-      format.json { head :no_content }
+    if @admin.destroy
+      respond_to do |format|
+        format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to admins_url, notice: 'Admin can\'t be destroyed.' 
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_admin
-      @admin = current_user
+    def get_admin
+      @admin = Admin.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
