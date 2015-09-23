@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Books</h1>
@@ -5,22 +6,21 @@
 <table>
   <thead>
     <tr>
-      <th>Isbn</th>
-      <th>Name</th>
-      <th>Authors</th>
-      <th colspan="3"></th>
+      <th>Sr no</th>
+      <th colspan = "1">Name</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @books.each do |book| %>
+    <% @books.each_with_index do |book,i| %>
       <tr>
-        <td><%= book.isbn %></td>
+        <td><%= i + 1 %> </td>
         <td><%= book.name %></td>
-        <td><%= book.authors %></td>
-        <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
-        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'View Details', book %></td>
+        <% if is_admin? %>
+          <td><%= link_to 'Edit', edit_book_path(book) %></td>
+          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Book', new_book_path %>
+

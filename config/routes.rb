@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   
 
-  root "welcome#index"
-  get 'signup' => 'members#signup'
+  resources :admins
+  get 'sessions/new'
 
+  root "welcome#index"
+  get 'signup' => 'members#signup', as:'signup'
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
 
   resources :books, param: :isbn
   resources :members

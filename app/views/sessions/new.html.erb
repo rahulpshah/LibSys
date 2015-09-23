@@ -1,0 +1,24 @@
+<div id="notice"><%= notice %></div>
+<%= form_for(:session, url: login_path) do |f| %>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label "Option" %>
+    <p><%= f.radio_button :option, "member" , checked: true %>
+    <%= f.label :option, "Member", :value => "member" %></p>
+    <p><%= f.radio_button :option ,"admin" %>
+    <%= f.label :option, "Admin", :value => "admin"  %></p>
+    
+    
+  </div>
+  <div class="actions">
+    <%= f.submit "Login" %>
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+<% end %>

@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -11,9 +12,12 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @member.password %>
+  
+  <%if current_user.email == @member.email %>
+  <strong>Password:</strong><%= @member.password %>
+  <%end%>
 </p>
 
-<%= link_to 'Edit', edit_member_path(@member) %> |
-<%= link_to 'Back', members_path %>
+<p><%= link_to 'Edit Profile', edit_member_path(@member)%>
+<p><%= link_to 'Logout', logout_path, method: "delete" %><p>
+
