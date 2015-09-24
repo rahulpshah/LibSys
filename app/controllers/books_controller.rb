@@ -1,8 +1,15 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :is_logged_in?
 
   # GET /books
   # GET /books.json
+  def is_logged_in?
+    if current_user == nil
+      flash[:privileges]="Please log in"
+      redirect_to login_path
+    end
+  end 
   def index
     @books = Book.all
   end
