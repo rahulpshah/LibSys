@@ -15,4 +15,10 @@
   <%= @book.authors %>
 </p>
 
+
+<p>
+  <strong>Status:</strong>
+  <%= @book.status %>
+</p>
+<%link_to  "Check Out" , checkout_path(@book)%>
 <%= link_to 'Edit', edit_book_path(@book) %> 

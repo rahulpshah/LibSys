@@ -52,3 +52,4 @@ gem 'devise'
 gem 'mysql'
 gem 'validates_email_format_of'
 
+gem 'searchkick'
