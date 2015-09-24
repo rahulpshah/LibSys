@@ -24,13 +24,14 @@ module SessionsHelper
   #end
   def logged_in?
     if !(current_user.nil?) 
-      current_user 
+      current_user
     else
       nil
     end
   end
   def log_out
      session[:user_id] = nil
+     @current_user = nil
   end
   def is_admin?
     current_user.class.to_s == 'Admin'

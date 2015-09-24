@@ -1,0 +1,1113 @@
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateMembers (20150917041353)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "members" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150917041353"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to CreateBooks (20150917041439)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "books" ("isbn" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "authors" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150917041439"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to CreateAdmins (20150922155256)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150922155256"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mAdmin Exists (0.1ms)[0m  SELECT  1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+
+
+Started GET "/" for ::1 at 2015-09-24 01:19:20 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered welcome/_search.html.erb (0.6ms)
+  Rendered welcome/index.html.erb within layouts/application (15.6ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 3334ms (Views: 3326.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 01:19:26 -0400
+Processing by SessionsController#new as HTML
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered sessions/new.html.erb within layouts/application (19.6ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 83ms (Views: 81.5ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 01:19:41 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"BwkAu5b+BLx7TA5jZyv/Ho8vpOGitsLiWe87Zf34VvMhb3BO4bWlGluZ8lSc3E3pdbOXn18lTQ1Acozy45h5mA==", "session"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]", "option"=>"admin"}, "commit"=>"Login"}
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1  [["email", "admin@admin.com"]]
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1[0m  [["email", "admin@admin.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.7ms)
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 1]]
+Completed 200 OK in 67ms (Views: 62.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/signup" for ::1 at 2015-09-24 01:21:27 -0400
+Processing by MembersController#signup as HTML
+  Rendered members/_signup.html.erb (4.3ms)
+  Rendered members/signup.html.erb within layouts/application (5.7ms)
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 88ms (Views: 82.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 01:21:37 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"yJQwtiwV4RJq6FYLP0WlkzRBGZyz9tAvsPK9yiSXnwzu8kBDW15AtEo9qjzEshdkzt0q4k5lX8CpbwpdOvewZw==", "member"=>{"name"=>"rahul", "email"=>"123.rahul.shah@gmail.com", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mMember Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "members" WHERE "members"."email" = '123.rahul.shah@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "members" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "rahul"], ["email", "123.rahul.shah@gmail.com"], ["password", "rahul123"], ["created_at", "2015-09-24 05:21:37.498428"], ["updated_at", "2015-09-24 05:21:37.498428"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/members/1
+Completed 302 Found in 17ms (ActiveRecord: 1.4ms)
+
+
+Started GET "/members/1" for ::1 at 2015-09-24 01:21:37 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  Rendered members/show.html.erb within layouts/application (1.9ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 69ms (Views: 66.7ms | ActiveRecord: 0.3ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 01:21:43 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"xyN7iwndvsLE4vdwSg9U+/kuKh1wgjRiYOxTbHFCo+zhRQt+fpYfZOQ3C0ex+OYMA7IZY40Ru415ceT7byKMhw=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 01:21:43 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.2ms)
+  Rendered welcome/index.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 63ms (Views: 62.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 01:21:44 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 73ms (Views: 72.4ms | ActiveRecord: 0.0ms)
+  [1m[36mAdmin Load (1.2ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mAdmin Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "admins" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "admin"], ["email", "admin@admin.com"], ["password", "admin123"], ["created_at", "2015-09-24 05:22:56.035725"], ["updated_at", "2015-09-24 05:22:56.035725"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+
+
+Started POST "/login" for ::1 at 2015-09-24 01:23:04 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"V09JczF9XF9e8MziA55TC+6waUPsedmSADOJP2qewhFxKTmGRjb9+X4lMNX4aeH8FCxaPRHqVn0Zrj6odP7teg==", "session"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]", "option"=>"admin"}, "commit"=>"Login"}
+  [1m[35mAdmin Load (0.2ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1  [["email", "admin@admin.com"]]
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1[0m  [["email", "admin@admin.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 63ms (Views: 57.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 01:23:11 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jBHIpEp1CHzVBYrdd4T/flniidp/3qRbu5ZjNR1piSCqd7hRPT6p2vXQduqMc02Jo366pIJNK7SiC9SiAwmmSw==", "session"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]", "option"=>"admin"}, "commit"=>"Login"}
+  [1m[35mAdmin Load (0.2ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1  [["email", "admin@admin.com"]]
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1[0m  [["email", "admin@admin.com"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 01:23:11 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.2ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (1.8ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 54ms (Views: 53.0ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 01:23:16 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"MYGmEq/rshbIPR0kit7QGUKLP9w9/+FJCv5wpAXBMTcX59bn2KATsOjo4RNxKWLuuBcMosBsbqYTY8czG6EeXA=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 01:23:16 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.2ms)
+  Rendered welcome/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 60ms (Views: 59.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 01:23:17 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 69ms (Views: 68.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 01:23:24 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"5d+DsowmwVReTzKOstWWSphjRBlkil4JJAt67/SYfh7DufNH+21g8n6azrlJIiS9Yv93Z5kZ0eY9ls146vhRdQ==", "session"=>{"email"=>"rahul@rahul.com", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rahul@rahul.com"]]
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rahul@rahul.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 66ms (Views: 62.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signup" for ::1 at 2015-09-24 01:23:56 -0400
+Processing by MembersController#signup as HTML
+  Rendered members/_signup.html.erb (1.7ms)
+  Rendered members/signup.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 64ms (Views: 63.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 01:24:07 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UwFGfa4wgFIkSWbTJc9QxzX6VeDk5H6mhByJyH5rUAB1ZzaI2Xsh9AScmuTeOOIwz2Zmnhl38UmdgT5fYAt/aw==", "member"=>{"name"=>"Rahul", "email"=>"rshah522@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mMember Exists (0.2ms)[0m  SELECT  1 AS one FROM "members" WHERE "members"."email" = 'rshah522@ncsu.edu' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "members" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Rahul"], ["email", "rshah522@ncsu.edu"], ["password", "rahul123"], ["created_at", "2015-09-24 05:24:07.186854"], ["updated_at", "2015-09-24 05:24:07.186854"]]
+  [1m[35m (0.8ms)[0m  commit transaction
+Redirected to http://localhost:3000/members/2
+Completed 302 Found in 6ms (ActiveRecord: 1.6ms)
+
+
+Started GET "/members/2" for ::1 at 2015-09-24 01:24:07 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 2]]
+  Rendered members/show.html.erb within layouts/application (3.1ms)
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.1ms)
+
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    13: 
+    14: <p>
+    15:   
+    16:   <%if current_user.email == @member.email %>
+    17:   <strong>Password:</strong><%= @member.password %>
+    18:   <%end%>
+    19: </p>
+  app/views/members/show.html.erb:16:in `_app_views_members_show_html_erb___4193154910007755192_70338444102640'
+
+
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.7ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (56.2ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (48.2ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (106.9ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 01:24:25 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UwFGfa4wgFIkSWbTJc9QxzX6VeDk5H6mhByJyH5rUAB1ZzaI2Xsh9AScmuTeOOIwz2Zmnhl38UmdgT5fYAt/aw==", "member"=>{"name"=>"Rahul", "email"=>"rshah522@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mMember Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "members" WHERE "members"."email" = 'rshah522@ncsu.edu' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  Rendered members/_signup.html.erb (2.1ms)
+  Rendered members/new.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 64ms (Views: 58.5ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 01:24:34 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8YF6qPGJT8dzDBh/dxoXSyF/Abqy1NVnOW2qU4534LbX5wpdhsLuYVPZ5EiM7aW82+MyxE9HWogg8B3EkBfP3Q==", "member"=>{"name"=>"Rahul", "email"=>"rshah5222@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mMember Exists (0.2ms)[0m  SELECT  1 AS one FROM "members" WHERE "members"."email" = 'rshah5222@ncsu.edu' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "members" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Rahul"], ["email", "rshah5222@ncsu.edu"], ["password", "rahul123"], ["created_at", "2015-09-24 05:24:34.428564"], ["updated_at", "2015-09-24 05:24:34.428564"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Redirected to http://localhost:3000/members/3
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/members/3" for ::1 at 2015-09-24 01:24:34 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 3]]
+  Rendered members/show.html.erb within layouts/application (8.5ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.1ms)
+
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    13: 
+    14: <p>
+    15:   
+    16:   <%if current_user.email == @member.email %>
+    17:   <strong>Password:</strong><%= @member.password %>
+    18:   <%end%>
+    19: </p>
+  app/views/members/show.html.erb:16:in `_app_views_members_show_html_erb___4193154910007755192_70338444102640'
+
+
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (53.5ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (44.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (6.6ms)
+  Rendered /Users/Rahul/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (105.9ms)
+
+
+Started PUT "/members/console/repl_sessions/419976d816058cda6afa7b37c50107e2" for ::1 at 2015-09-24 02:12:52 -0400
+
+
+Started PUT "/members/console/repl_sessions/419976d816058cda6afa7b37c50107e2" for ::1 at 2015-09-24 02:13:00 -0400
+
+
+Started PUT "/members/console/repl_sessions/419976d816058cda6afa7b37c50107e2" for ::1 at 2015-09-24 02:13:51 -0400
+
+
+Started PUT "/members/console/repl_sessions/419976d816058cda6afa7b37c50107e2" for ::1 at 2015-09-24 02:13:59 -0400
+
+
+Started GET "/members" for ::1 at 2015-09-24 02:14:38 -0400
+Processing by MembersController#index as HTML
+Redirected to http://localhost:3000/
+Filter chain halted as :checkauth? rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:14:38 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.3ms)
+  Rendered welcome/index.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 73ms (Views: 72.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for ::1 at 2015-09-24 02:14:39 -0400
+Processing by MembersController#signup as HTML
+  Rendered members/_signup.html.erb (1.8ms)
+  Rendered members/signup.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 82ms (Views: 75.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/signup" for ::1 at 2015-09-24 02:14:41 -0400
+Processing by MembersController#signup as HTML
+  Rendered members/_signup.html.erb (1.4ms)
+  Rendered members/signup.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 64ms (Views: 63.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 02:14:55 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"hKOGWFjcN4JrBxNMiOPurJfDO1ZNFNYDsA6VFWL1mHuixfatL5eWJEvS73tzFFxbbV8IKLCHWeypkyKCfJW3EA==", "member"=>{"name"=>"rahul", "email"=>"rah@tahul.com", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mMember Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "members" WHERE "members"."email" = 'rah@tahul.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "members" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "rahul"], ["email", "rah@tahul.com"], ["password", "rahul123"], ["created_at", "2015-09-24 06:14:55.502497"], ["updated_at", "2015-09-24 06:14:55.502497"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/members/4
+Completed 302 Found in 9ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/members/4" for ::1 at 2015-09-24 02:14:55 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "4"]]
+  Rendered members/show.html.erb within layouts/application (1.7ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "4"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "4"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "4"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "4"]]
+Completed 200 OK in 64ms (Views: 62.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 02:15:07 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"PuZasH0RPnyoQlwyjgymFeHGkLjJc0/vuAn8CwKXzYkYgCpFClqf2oiXoAV1+xTiG1qjxjTgwAChlEucHPfi4g=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:15:07 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.2ms)
+  Rendered welcome/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 77ms (Views: 76.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 02:15:13 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 55ms (Views: 54.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:15:26 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wh3d64LenBqyaSjVU093L05HYoNUaEAtRzuWUgbW3E7ke60e9ZU9vJK81OKouMXYtNtR/an7z8JepiHFGLbzJQ==", "session"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]", "option"=>"admin"}, "commit"=>"Login"}
+  [1m[35mAdmin Load (0.2ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1  [["email", "admin@admin.com"]]
+  [1m[36mMember Load (0.2ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1[0m  [["email", "admin@admin.com"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 10ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:15:26 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (1.8ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 60ms (Views: 59.5ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 02:15:35 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"D/1UcqcSehUET4KHiHp6NB602f+sZ11kZURSM+LWTEspmySH0FnbsySafrBzjcjD5CjqgVH00ot82eWk/LZjIA=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:15:35 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.2ms)
+  Rendered welcome/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 69ms (Views: 68.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 02:15:36 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 52ms (Views: 51.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:15:46 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rxg1F3NislzMkpdPXtJ+P1qHOs9AC9bTRwo0fRYM0YCJfkXiBCkT+uxHa3ilJczIoBsJsb2YWTxel4PqCGz+6w==", "session"=>{"email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rshah5@ncsu.edu"]]
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rshah5@ncsu.edu"]]
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 56ms (Views: 55.0ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:20:38 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rxg1F3NislzMkpdPXtJ+P1qHOs9AC9bTRwo0fRYM0YCJfkXiBCkT+uxHa3ilJczIoBsJsb2YWTxel4PqCGz+6w==", "session"=>{"email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rshah5@ncsu.edu"]]
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rshah5@ncsu.edu"]]
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 70ms (Views: 61.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/books.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/admins.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/members.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/scaffolds.self-d1d55e1bd9ea7c89659c8c3a3d66245c9b4265370927d9c3e3ba04ba12d55ca4.css?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/admins.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/books.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/members.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-09-24 02:20:38 -0400
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:20:47 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"w8rLUZGLBlBzl3DZIZFzZoNQnKEILnQ+K4mH6LELZI3lrLuk5sCn9lNCjO7aZsGRecyv3/W9+9EyFDB/r2tL5g==", "session"=>{"email"=>"rahul@rahul.com", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rahul@rahul.com"]]
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rahul@rahul.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 61ms (Views: 58.7ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:26:54 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"NJoWPhXunQjjx2qpAIKOZnCjxL9p2UVApNGRlR3GNBUS/GbLYqU8rsMSlp77dTyRij/3wZRKyq+9TCYCA6Ybfg==", "session"=>{"email"=>"rahul@rahul.com", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rahul@rahul.com"]]
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rahul@rahul.com"]]
+  Rendered sessions/new.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 62ms (Views: 59.7ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:27:10 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Y0rV0VkGhygsCMDTlePTeHYWqgc4aNHnRC8HYaBv4/pFLKUkLk0mjgzdPORuFGGPjIqZecX7XghdsrD2vg/MkQ==", "session"=>{"email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rshah5@ncsu.edu"]]
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rshah5@ncsu.edu"]]
+  Rendered sessions/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 75ms (Views: 71.8ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:27:21 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"QxmTiPxtmgNFONoGlbXn06yJ+Tkf0CgOTTNYvym3KbZlf+N9iyY7pWXtJjFuQlUkVhXKR+JDp+FUru8oN9cG3Q==", "session"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]", "option"=>"admin"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "admin@admin.com"]]
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "admin@admin.com"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 7ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:27:21 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (2.4ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 58ms (Views: 57.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/members" for ::1 at 2015-09-24 02:27:24 -0400
+Processing by MembersController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT "members".* FROM "members"[0m
+  Rendered members/index.html.erb within layouts/application (4.6ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 59ms (Views: 57.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:27:28 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (2.1ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 56ms (Views: 55.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins" for ::1 at 2015-09-24 02:27:29 -0400
+Processing by AdminsController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT "admins".* FROM "admins" WHERE ("admins"."name" != ?)[0m  [["name", "admin"]]
+  Rendered admins/index.html.erb within layouts/application (1.7ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 62ms (Views: 54.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/admins/new" for ::1 at 2015-09-24 02:27:31 -0400
+Processing by AdminsController#new as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered admins/_form.html.erb (2.7ms)
+  Rendered admins/new.html.erb within layouts/application (4.4ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 77ms (Views: 76.1ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/admins" for ::1 at 2015-09-24 02:27:44 -0400
+Processing by AdminsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"CJYLWtVIKzmvCsPXGRGp9Cjxc1XaCK0Rxxuw/rlIonYu8HuvogOKn4/fP+Di5hsD0m1AKyebIv7ehgdppyiNHQ==", "admin"=>{"name"=>"rahul", "email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Admin"}
+  [1m[36mAdmin Load (0.4ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mAdmin Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "admins" WHERE "admins"."email" = 'rshah5@ncsu.edu' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "admins" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "rahul"], ["email", "rshah5@ncsu.edu"], ["password", "rahul123"], ["created_at", "2015-09-24 06:27:44.338883"], ["updated_at", "2015-09-24 06:27:44.338883"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/admins/2
+Completed 302 Found in 9ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/admins/2" for ::1 at 2015-09-24 02:27:44 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mAdmin Load (0.2ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered admins/show.html.erb within layouts/application (1.2ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 57ms (Views: 54.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:27:52 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (1.9ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 63ms (Views: 62.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins" for ::1 at 2015-09-24 02:27:54 -0400
+Processing by AdminsController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT "admins".* FROM "admins" WHERE ("admins"."name" != ?)  [["name", "admin"]]
+  Rendered admins/index.html.erb within layouts/application (1.1ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 55ms (Views: 53.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:27:57 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (1.4ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 57ms (Views: 56.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins/new" for ::1 at 2015-09-24 02:28:01 -0400
+Processing by AdminsController#new as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered admins/_form.html.erb (1.6ms)
+  Rendered admins/new.html.erb within layouts/application (2.9ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 58ms (Views: 56.9ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/admins" for ::1 at 2015-09-24 02:28:11 -0400
+Processing by AdminsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"oLJ2QUNG2VhfNrvITeYuIq+vzDSnbp1jJYqdagGbkBiG1Aa0NA14/n/jR/+2EZzVVTP/Slr9Eow8Fyr9H/u/cw==", "admin"=>{"name"=>"dharmendra", "email"=>"djvaghel@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Admin"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mAdmin Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "admins" WHERE "admins"."email" = 'djvaghel@ncsu.edu' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "admins" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "dharmendra"], ["email", "djvaghel@ncsu.edu"], ["password", "rahul123"], ["created_at", "2015-09-24 06:28:11.195003"], ["updated_at", "2015-09-24 06:28:11.195003"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/admins/3
+Completed 302 Found in 14ms (ActiveRecord: 1.6ms)
+
+
+Started GET "/admins/3" for ::1 at 2015-09-24 02:28:11 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered admins/show.html.erb within layouts/application (0.6ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 53ms (Views: 51.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:28:13 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  Rendered welcome/index.html.erb within layouts/application (1.4ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 52ms (Views: 51.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins/new" for ::1 at 2015-09-24 02:28:15 -0400
+Processing by AdminsController#new as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered admins/_form.html.erb (1.6ms)
+  Rendered admins/new.html.erb within layouts/application (2.7ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 56ms (Views: 54.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/admins" for ::1 at 2015-09-24 02:28:30 -0400
+Processing by AdminsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fi7SiMqcnF7l4q4zayPyWMnEl9zxB5k2d5sYJMC9RRtYSKJ9vdc9+MU3UgSQ1ECvM1ikogyUFtluBq+z3t1qcA==", "admin"=>{"name"=>"ronak", "email"=>"rghadiya@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Admin"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mAdmin Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "admins" WHERE "admins"."email" = 'rghadiya@ncsu.edu' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "admins" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "ronak"], ["email", "rghadiya@ncsu.edu"], ["password", "rahul123"], ["created_at", "2015-09-24 06:28:30.824229"], ["updated_at", "2015-09-24 06:28:30.824229"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/admins/4
+Completed 302 Found in 6ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/admins/4" for ::1 at 2015-09-24 02:28:30 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered admins/show.html.erb within layouts/application (0.7ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "1"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 63ms (Views: 61.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 02:28:33 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ignoajPTy5azgHBm9ZSv1x9UbDiyKcOiD3t0ASz99pisb5ifRJhqMJNVjFEOYx0g5chfRk+6TE0W5sOWMp3Z8w=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:28:33 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.3ms)
+  Rendered welcome/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 57ms (Views: 55.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 02:28:35 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 57ms (Views: 56.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:28:41 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"0J87VPL9ZdSofBMGYBJr0wfQRNQ9228/1ja5K6DBYK72+UuhhbbEcoip7zGb5dkk/Ux3qsBI4NDPqw68vqFPxQ==", "session"=>{"email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]", "option"=>"admin"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rshah5@ncsu.edu"]]
+  [1m[35mMember Load (0.4ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rshah5@ncsu.edu"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 4ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:28:41 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  Rendered welcome/index.html.erb within layouts/application (1.6ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 67ms (Views: 66.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins" for ::1 at 2015-09-24 02:28:45 -0400
+Processing by AdminsController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT "admins".* FROM "admins" WHERE ("admins"."name" != ?)  [["name", "rahul"]]
+  Rendered admins/index.html.erb within layouts/application (1.4ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+Completed 200 OK in 55ms (Views: 53.4ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/admins/1" for ::1 at 2015-09-24 02:28:50 -0400
+Processing by AdminsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"s/6LsToln73kLvANncTR456P1HyrrTVkPUGciFp7GT+VmPtETW4+G8T7DDpmM2MUZBPnAlY+uosk3CsfRBs2VA==", "id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Redirected to http://localhost:3000/admins
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/admins" for ::1 at 2015-09-24 02:28:50 -0400
+Processing by AdminsController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT "admins".* FROM "admins" WHERE ("admins"."name" != ?)[0m  [["name", "rahul"]]
+  Rendered admins/index.html.erb within layouts/application (3.1ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 89ms (Views: 87.0ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/admins/4" for ::1 at 2015-09-24 02:28:57 -0400
+Processing by AdminsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ZwulWDO9BKD7/Rwi7YZUkmmN0skSgo2FubV+Yazr569BbdWtRPalBtso4BUWceZlkxHht+8RAmqgKMn2sovIxA==", "id"=>"4"}
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = ?[0m  [["id", 4]]
+  [1m[35m (1.4ms)[0m  commit transaction
+Redirected to http://localhost:3000/admins
+Completed 302 Found in 4ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/admins" for ::1 at 2015-09-24 02:28:57 -0400
+Processing by AdminsController#index as HTML
+  [1m[36mAdmin Load (0.3ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT "admins".* FROM "admins" WHERE ("admins"."name" != ?)[0m  [["name", "rahul"]]
+  Rendered admins/index.html.erb within layouts/application (1.8ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 96ms (Views: 91.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:29:16 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  Rendered welcome/index.html.erb within layouts/application (1.3ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+Completed 200 OK in 66ms (Views: 65.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins/2" for ::1 at 2015-09-24 02:29:18 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  Rendered admins/show.html.erb within layouts/application (1.3ms)
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 61ms (Views: 59.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:29:20 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.1ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  Rendered welcome/index.html.erb within layouts/application (1.4ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+Completed 200 OK in 58ms (Views: 57.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/members" for ::1 at 2015-09-24 02:29:23 -0400
+Processing by MembersController#index as HTML
+  [1m[36mAdmin Load (0.3ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mMember Load (0.2ms)[0m  SELECT "members".* FROM "members"
+  Rendered members/index.html.erb within layouts/application (3.5ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+Completed 200 OK in 67ms (Views: 65.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:31:17 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  Rendered welcome/index.html.erb within layouts/application (1.5ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 54ms (Views: 53.7ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 02:31:19 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"7mDJdwY1/k3vz4GgPLxf/hFjfEsbv6vPzW8/fsb+yJjIBrmCcX5f688afZfHS+0J6/9PNeYsJCDU8ojp2J7n8w=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:31:19 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.2ms)
+  Rendered welcome/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 55ms (Views: 53.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 02:31:20 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 66ms (Views: 65.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for ::1 at 2015-09-24 02:31:27 -0400
+Processing by MembersController#signup as HTML
+  Rendered members/_signup.html.erb (2.4ms)
+  Rendered members/signup.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 65ms (Views: 64.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 02:31:36 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7/M07dDUyv7Nh7eYzewHKCKA5NrM/mNqLHHrGON0ggrJlUQYp59rWO1SS682G7Xf2BzXpDFt7IU17FyP/RStYQ==", "member"=>{"name"=>"Rahul", "email"=>"rah@tahul.com", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mMember Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "members" WHERE "members"."email" = 'rah@tahul.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  Rendered members/_signup.html.erb (3.6ms)
+  Rendered members/new.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 69ms (Views: 61.0ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 02:31:41 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"p2Epgq46M8Iz/XVz2hY/BG7wy/0lz00D84jMwdlElU2BB1l32XGSZBMoiUQh4Y3zlGz4g9hcwuzqFXtWxyS6Jg==", "member"=>{"name"=>"Rahul", "email"=>"rah@tahul2.com", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mMember Exists (0.2ms)[0m  SELECT  1 AS one FROM "members" WHERE "members"."email" = 'rah@tahul2.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  Rendered members/_signup.html.erb (2.2ms)
+  Rendered members/new.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 63ms (Views: 58.0ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 02:31:45 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7U3bhC8wkpjBIxtp1vJqbnrZghNkWIF8TQHQ3OFUZUPLK6txWHszPuH2514tBdiZgEWxbZnLDpNUnGdL/zRKKA==", "member"=>{"name"=>"Rahul", "email"=>"rah@tahul2.com", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mMember Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "members" WHERE "members"."email" = 'rah@tahul2.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "members" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Rahul"], ["email", "rah@tahul2.com"], ["password", "rahul123"], ["created_at", "2015-09-24 06:31:45.518324"], ["updated_at", "2015-09-24 06:31:45.518324"]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/members/5
+Completed 302 Found in 9ms (ActiveRecord: 3.1ms)
+
+
+Started GET "/members/5" for ::1 at 2015-09-24 02:31:45 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mMember Load (0.3ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  Rendered members/show.html.erb within layouts/application (2.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+Completed 200 OK in 71ms (Views: 68.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/members/5/edit" for ::1 at 2015-09-24 02:31:53 -0400
+Processing by MembersController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 5]]
+  Rendered members/_form.html.erb (2.3ms)
+  Rendered members/edit.html.erb within layouts/application (4.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+Completed 200 OK in 56ms (Views: 55.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/members/5" for ::1 at 2015-09-24 02:31:54 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  Rendered members/show.html.erb within layouts/application (2.2ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+Completed 200 OK in 57ms (Views: 55.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:31:55 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  Rendered welcome/index.html.erb within layouts/application (1.2ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+Completed 200 OK in 68ms (Views: 67.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:43:36 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  Rendered welcome/index.html.erb within layouts/application (14.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "5"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "5"]]
+Completed 200 OK in 209ms (Views: 199.6ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 02:43:38 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"qlfArxO6ZNOeAv7UYHNxg/lHfj7XwZQ+W289oOkKRHCMMbBaZPHFdb7XAuObhMN0A9tNQCpSG9FC8oo392prGw=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:43:38 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.6ms)
+  Rendered welcome/index.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 65ms (Views: 64.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2015-09-24 02:43:40 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (34.7ms)
+Completed 200 OK in 112ms (Views: 111.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2015-09-24 02:43:49 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wnaobSHj6spCBtLRijrbFAmT4NtGJsrWmwH9Tzy95eDkENiYVqhLbGLTLuZxzWnj8w/Tpbu1RTmCnErYIt3Kiw==", "session"=>{"email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]", "option"=>"member"}, "commit"=>"Login"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT 1[0m  [["email", "rshah5@ncsu.edu"]]
+  [1m[35mMember Load (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT 1  [["email", "rshah5@ncsu.edu"]]
+  Rendered sessions/new.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 110ms (Views: 96.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/signup" for ::1 at 2015-09-24 02:43:52 -0400
+Processing by MembersController#signup as HTML
+  Rendered members/_signup.html.erb (5.8ms)
+  Rendered members/signup.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 76ms (Views: 74.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/members" for ::1 at 2015-09-24 02:44:00 -0400
+Processing by MembersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Ph4pHWOqlfdFRoknuS+2Tq9EyKjydM1CZiPzf8Alk9oYeFnoFOE0UWWTdRBC2AS5Vdj71g/nQq1/vkTo3kW8sQ==", "member"=>{"name"=>"Rahul", "email"=>"rshah5@ncsu.edu", "password"=>"[FILTERED]"}, "commit"=>"Create Member"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mMember Exists (0.1ms)[0m  SELECT  1 AS one FROM "members" WHERE "members"."email" = 'rshah5@ncsu.edu' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "members" ("name", "email", "password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Rahul"], ["email", "rshah5@ncsu.edu"], ["password", "rahul123"], ["created_at", "2015-09-24 06:44:00.869554"], ["updated_at", "2015-09-24 06:44:00.869554"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Redirected to http://localhost:3000/members/6
+Completed 302 Found in 20ms (ActiveRecord: 1.2ms)
+
+
+Started GET "/members/6" for ::1 at 2015-09-24 02:44:00 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mMember Load (0.4ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  Rendered members/show.html.erb within layouts/application (1.9ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+Completed 200 OK in 69ms (Views: 65.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:44:05 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  Rendered welcome/index.html.erb within layouts/application (1.8ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+Completed 200 OK in 58ms (Views: 57.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:53:58 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  Rendered welcome/index.html.erb within layouts/application (13.6ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1[0m  [["id", "6"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT 1  [["id", "6"]]
+Completed 200 OK in 197ms (Views: 188.4ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/logout" for ::1 at 2015-09-24 02:54:00 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"N0ALDeFDLbqK4FVeJGNLrD1oS0mVH9+Et7Gwz3IpDNwRJnv4lgiMHKo1qWnflPlbx/R4N2iMUGuuLAdYbEkjtw=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-09-24 02:54:00 -0400
+Processing by WelcomeController#index as HTML
+  Rendered welcome/_search.html.erb (0.6ms)
+  Rendered welcome/index.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 56ms (Views: 55.8ms | ActiveRecord: 0.0ms)
