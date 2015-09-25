@@ -6,6 +6,14 @@ class BooksController < ApplicationController
 
   # GET /books
   # GET /books.json
+  before_action :checkauth?, only: [:new, :edit, :update, :destroy]
+  
+  def checkauth?
+    unless is_admin?
+      flash[:privileges]="Not enough privileges"
+      redirect_to root_path
+    end
+  end
   def is_logged_in?
     if current_user == nil
       flash[:privileges]="Please log in"
@@ -17,10 +25,12 @@ class BooksController < ApplicationController
     if params[:search_option].present?                   #DO VALIDATiON 
       if(params[:search_option] == "isbn")
         @books = Book.where(isbn: params[:search])
+      elsif (params[:search_option] == "name")
+        @books = Book.where("name ILIKE '%#{params[:search]}%'")
       else
-        @isbns = Book.search(params[:search]).map(&:isbn)
-        @books = Book.where({ isbn: @isbns })
+        @books = Book.where("authors ILIKE '%#{params[:search]}%'")
       end
+
     else
       @books = Book.all
     end

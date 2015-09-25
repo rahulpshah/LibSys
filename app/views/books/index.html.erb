@@ -29,8 +29,11 @@
           
         </td>
       </tr>
+    
     <% end %>
-    <p><%= link_to 'Add a Book', new_book_path %></p>
+    <% if is_admin? %>
+      <p><%= link_to 'Add a Book', new_book_path %></p>
+    <%end%>
   </tbody>
 </table>
 
