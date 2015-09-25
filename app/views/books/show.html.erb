@@ -14,5 +14,6 @@
   <strong>Authors:</strong>
   <%= @book.authors %>
 </p>
-
+<%if is_admin? %>
 <%= link_to 'Edit', edit_book_path(@book) %> 
+<%end%>
