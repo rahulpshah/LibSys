@@ -13,7 +13,17 @@ class BooksController < ApplicationController
     end
   end 
   def index
-    @books = Book.all
+    #if
+    if params[:search_option].present?                   #DO VALIDATiON 
+      if(params[:search_option] == "isbn")
+        @books = Book.where(isbn: params[:search])
+      else
+        @isbns = Book.search(params[:search]).map(&:isbn)
+        @books = Book.where({ isbn: @isbns })
+      end
+    else
+      @books = Book.all
+    end
   end
 
   # GET /books/1

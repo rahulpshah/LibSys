@@ -1,28 +1,36 @@
 
 <p id="notice"><%= notice %></p>
-
+<%if @books.empty? %>
+  <p>There are no books.</p>
+<%end%>
 <h1>Listing Books</h1>
 
 <table>
   <thead>
     <tr>
       <th>Sr no</th>
-      <th colspan = "1">Name</th>
+      <th>Name</th>
+      <th>Status</th>
     </tr>
   </thead>
-
+  
   <tbody>
     <% @books.each_with_index do |book,i| %>
       <tr>
         <td><%= i + 1 %> </td>
         <td><%= book.name %></td>
+        <td><%= book.status %></td>
         <td><%= link_to 'View Details', book %></td>
         <% if is_admin? %>
           <td><%= link_to 'Edit', edit_book_path(book) %></td>
           <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
+        <td>
+          
+        </td>
       </tr>
     <% end %>
+    <p><%= link_to 'Add a Book', new_book_path %></p>
   </tbody>
 </table>
 

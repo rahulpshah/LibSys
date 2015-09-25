@@ -12,9 +12,12 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150924105006) do
+<<<<<<< HEAD
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+=======
+>>>>>>> search
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -25,7 +28,11 @@ ActiveRecord::Schema.define(version: 20150924105006) do
   end
 
   create_table "book_transactions", force: :cascade do |t|
+<<<<<<< HEAD
     t.integer "book_id"
+=======
+    t.integer "isbn"
+>>>>>>> search
     t.integer "member_id"
   end
 

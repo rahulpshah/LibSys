@@ -3,7 +3,9 @@
 <%x = logged_in? %>
 <% unless x.nil? %>
 	<p>Hi, <%= x.name %></p>
-<p><%= link_to "Show all books", books_path %><p>
+
+	<p><%= link_to 'Show all Books', books_path %></p>
+
 <% if is_admin? %>	
 	<p><%= link_to 'Show all Admins', admins_path %></p>
 	<p><%= link_to 'Show all Members', members_path %></p>
@@ -15,5 +17,6 @@
 	<p><%= link_to "Login", login_path %></p>
 	<p><%= link_to "Signup!", signup_path %></p>
 <%end%>
-<%= render "search" if logged_in? %>
-
+<%if logged_in?%>
+<%= render "search" %>
+<%end%>

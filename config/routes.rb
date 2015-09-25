@@ -5,13 +5,15 @@ Rails.application.routes.draw do
   
 
   root "welcome#index"
-  get 'signup' => 'members#signup', as:'signup'
-  get    'login'   => 'sessions#new'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
+  get    'signup'   => 'members#signup', as:'signup'
+  get    'login'    => 'sessions#new'
+  post   'login'    => 'sessions#create'
+  delete 'logout'   => 'sessions#destroy'
+  get    'checkout/:id' => 'books_transactions#checkout' , as: "checkout"
 
   resources :books, param: :isbn
   resources :members
+  resources :books_transactions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
