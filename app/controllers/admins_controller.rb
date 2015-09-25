@@ -14,8 +14,9 @@ class AdminsController < ApplicationController
   
   def index
     h = Hash.new
-    h[:name]=current_user.name
+    h[:id]=current_user.id
     @admins = Admin.where.not(h)
+    puts @admins
   end
 
   # GET /admins/1
