@@ -66,6 +66,7 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
+  
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
@@ -76,4 +77,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  #ADDED BY ME
+  config.active_record.migration_error = :page_load
+  config.assets.raise_runtime_errors = true
+  config.assets.debug = true
+  config.consider_all_requests_local       = true
 end
