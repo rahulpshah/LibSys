@@ -25,11 +25,10 @@
           <td><%= link_to 'Edit', edit_book_path(book) %></td>
           <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
-        <td>
-          
-        </td>
+        <%if book.status == "Available" %>
+          <td><%= link_to 'Checkout', checkout_path(book.isbn) %></td>
+        <%end%>
       </tr>
-    
     <% end %>
     <% if is_admin? %>
       <p><%= link_to 'Add a Book', new_book_path %></p>

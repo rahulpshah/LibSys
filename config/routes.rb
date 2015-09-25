@@ -9,11 +9,12 @@ Rails.application.routes.draw do
   get    'login'    => 'sessions#new'
   post   'login'    => 'sessions#create'
   delete 'logout'   => 'sessions#destroy'
-  get    'checkout/:id' => 'books_transactions#checkout' , as: "checkout"
+  get    'checkout/:id' => 'book_transactions#new' , as: "checkout"
+  post   'checkout' => 'book_transactions#create'
 
   resources :books, param: :isbn
   resources :members
-  resources :books_transactions
+  resources :book_transactions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   #       get 'short'
   #       post 'toggle'
   #     end
-  #
+  
   #     collection do
   #       get 'sold'
   #     end

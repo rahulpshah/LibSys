@@ -1,6 +1,5 @@
 class BookTransactionsController < ApplicationController
   before_action :set_book_transaction, only: [:show, :edit, :update, :destroy]
-
   # GET /book_transactions
   # GET /book_transactions.json
   def index
@@ -28,7 +27,8 @@ class BookTransactionsController < ApplicationController
 
     respond_to do |format|
       if @book_transaction.save
-        format.html { redirect_to @book_transaction, notice: 'Book transaction was successfully created.' }
+        @book_transaction.book.update(status: "Checkout")
+        format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
         format.json { render :show, status: :created, location: @book_transaction }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class BookTransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @book_transaction.update(book_transaction_params)
-        format.html { redirect_to @book_transaction, notice: 'Book transaction was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Book transaction was successfully updated.' }
         format.json { render :show, status: :ok, location: @book_transaction }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class BookTransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_transaction_params
-      params.require(:book_transaction).permit(:isbn, :name, :member)
+      params.require(:book_transaction).permit(:book_id,  :member_id)
     end
 end

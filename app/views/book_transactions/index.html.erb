@@ -14,8 +14,8 @@
   <tbody>
     <% @book_transactions.each do |book_transaction| %>
       <tr>
-        <td><%= book_transaction.isbn %></td>
-        <td><%= book_transaction.member %></td>
+        <td><%= book_transaction.book_id %></td>
+        <td><%= book_transaction.member_id %></td>
         <td><%= link_to 'Show', book_transaction %></td>
         <td><%= link_to 'Edit', edit_book_transaction_path(book_transaction) %></td>
         <td><%= link_to 'Destroy', book_transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
