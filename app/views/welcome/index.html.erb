@@ -3,36 +3,17 @@
 <%x = logged_in? %>
 <% unless x.nil? %>
 	<p>Hi, <%= x.name %></p>
-<p><%= link_to "View all books", books_path %><p>
+<p><%= link_to "Show all books", books_path %><p>
 <% if is_admin? %>	
 	<p><%= link_to 'Show all Admins', admins_path %></p>
 	<p><%= link_to 'Show all Members', members_path %></p>
-	<p><%= link_to 'Show all Books', books_path %></p>
 	<p><%= link_to 'Add an Admin', new_admin_path %></p>
 	<p><%= link_to 'Add a Book', new_book_path %></p>
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <%end%>
 	<p><%= link_to "Logout" ,logout_path, method: "delete" %></p>
 <%else%>
 	<p><%= link_to "Login", login_path %></p>
 	<p><%= link_to "Signup!", signup_path %></p>
 <%end%>
-<%= render "search" %>
+<%= render "search" if logged_in? %>
+
