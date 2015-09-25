@@ -11,6 +11,8 @@ test:
 
 production:
   adapter: postgresql
-  database: my_database_production
+  database: d3nbepu15s0alh
+  user: tqgiytcadecrvl
+  password: MYej_IYwYPXQxU5BE-IJOm7zIU
   pool: 5
   timeout: 5000
