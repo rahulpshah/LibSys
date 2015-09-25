@@ -7471,3 +7471,214 @@ Processing by MembersController#show as HTML
   [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
 Completed 200 OK in 73ms (Views: 70.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/members/2" for ::1 at 2015-09-25 16:53:04 -0400
+Processing by MembersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  Rendered members/show.html.erb within layouts/application (0.9ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 125ms (Views: 123.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/books.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/members.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/admins.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/scaffolds.self-d1d55e1bd9ea7c89659c8c3a3d66245c9b4265370927d9c3e3ba04ba12d55ca4.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/admins.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/books.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/members.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-09-25 16:53:04 -0400
+
+
+Started GET "/" for ::1 at 2015-09-25 16:55:37 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mMember Load (0.5ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  Rendered welcome/_search.html.erb (1.0ms)
+  Rendered welcome/index.html.erb within layouts/application (9.2ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+Completed 200 OK in 135ms (Views: 133.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/books" for ::1 at 2015-09-25 16:55:45 -0400
+Processing by BooksController#index as HTML
+  [1m[36mMember Load (0.7ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "books"
+  [1m[36mBook Load (0.4ms)[0m  [1mSELECT "books".* FROM "books"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  Rendered books/index.html.erb within layouts/application (9.8ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+Completed 200 OK in 128ms (Views: 123.9ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/checkout/1231111" for ::1 at 2015-09-25 16:55:47 -0400
+Processing by BookTransactionsController#new as HTML
+  Parameters: {"id"=>"1231111"}
+  [1m[36mMember Load (0.2ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  Rendered book_transactions/_form.html.erb (4.2ms)
+  Rendered book_transactions/new.html.erb within layouts/application (5.7ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 139ms (Views: 137.9ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/checkout" for ::1 at 2015-09-25 16:55:48 -0400
+Processing by BookTransactionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Vc/bnx3/73c5LKdSUlZacGs4XcGfepw5Xz72eYi694YATltA/SI6X4C3KdfUu8JKSWCJssKxvf834sImZ7VZ8w==", "book_transaction"=>{"book_id"=>"1231111", "member_id"=>"2"}, "commit"=>" Confirm Checkout"}
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "book_transactions" ("book_id", "member_id") VALUES ($1, $2) RETURNING "id"[0m  [["book_id", 1231111], ["member_id", 2]]
+  [1m[35m (5.8ms)[0m  COMMIT
+  [1m[36mBook Load (0.2ms)[0m  [1mSELECT  "books".* FROM "books" WHERE "books"."isbn" = $1 LIMIT 1[0m  [["isbn", 1231111]]
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mUPDATE "books" SET "status" = $1, "updated_at" = $2 WHERE "books"."isbn" = $3[0m  [["status", "Checkout"], ["updated_at", "2015-09-25 20:55:48.894139"], ["isbn", 1231111]]
+  [1m[35m (0.7ms)[0m  COMMIT
+Redirected to http://localhost:3000/
+Completed 302 Found in 31ms (ActiveRecord: 8.5ms)
+
+
+Started GET "/" for ::1 at 2015-09-25 16:55:48 -0400
+Processing by WelcomeController#index as HTML
+  [1m[36mMember Load (0.6ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  Rendered welcome/_search.html.erb (1.0ms)
+  Rendered welcome/index.html.erb within layouts/application (6.1ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 120ms (Views: 117.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/books" for ::1 at 2015-09-25 16:56:07 -0400
+Processing by BooksController#index as HTML
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36m (4.5ms)[0m  [1mSELECT COUNT(*) FROM "books"[0m
+  [1m[35mBook Load (0.5ms)[0m  SELECT "books".* FROM "books"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  Rendered books/index.html.erb within layouts/application (19.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+Completed 200 OK in 94ms (Views: 86.4ms | ActiveRecord: 5.6ms)
+
+
+Started GET "/checkout/1233214" for ::1 at 2015-09-25 16:56:08 -0400
+Processing by BookTransactionsController#new as HTML
+  Parameters: {"id"=>"1233214"}
+  [1m[35mMember Load (0.2ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  Rendered book_transactions/_form.html.erb (3.2ms)
+  Rendered book_transactions/new.html.erb within layouts/application (5.7ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+Completed 200 OK in 117ms (Views: 115.9ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/checkout" for ::1 at 2015-09-25 16:56:10 -0400
+Processing by BookTransactionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ewlkvgCTM6oerG2gRUL6hPnHCKS9U14IQUR0xmP2aAguiORh4E7mgqc34yXDr2K+25/c1+CYf84pmECZjPnGfQ==", "book_transaction"=>{"book_id"=>"1233214", "member_id"=>"2"}, "commit"=>" Confirm Checkout"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "book_transactions" ("book_id", "member_id") VALUES ($1, $2) RETURNING "id"  [["book_id", 1233214], ["member_id", 2]]
+  [1m[36m (6.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mBook Load (0.3ms)[0m  SELECT  "books".* FROM "books" WHERE "books"."isbn" = $1 LIMIT 1  [["isbn", 1233214]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  UPDATE "books" SET "status" = $1, "updated_at" = $2 WHERE "books"."isbn" = $3  [["status", "Checkout"], ["updated_at", "2015-09-25 20:56:10.600617"], ["isbn", 1233214]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 23ms (ActiveRecord: 9.1ms)
+
+
+Started GET "/" for ::1 at 2015-09-25 16:56:10 -0400
+Processing by WelcomeController#index as HTML
+  [1m[35mMember Load (0.6ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  Rendered welcome/_search.html.erb (0.9ms)
+  Rendered welcome/index.html.erb within layouts/application (10.3ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1[0m  [["id", "2"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "members".* FROM "members" WHERE "members"."id" = $1 LIMIT 1  [["id", "2"]]
+Completed 200 OK in 153ms (Views: 151.1ms | ActiveRecord: 0.8ms)
