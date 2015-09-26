@@ -10,9 +10,35 @@
   <strong>Email:</strong>
   <%= @member.email %>
 </p>
+<p>List of Books Checked out</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Book Name</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @member.books.uniq.each do |book| %>
+      <% if @member.books.where(isbn: book.isbn).count.odd? %>
+      <tr>   
+        <td><%= book.name %></td>
+        <td><%= link_to 'Show', book %></td>
+        <td><%= link_to 'Return Book', checkin_path(book.isbn) %></td>
+      </tr>
+      <%else%>
+      <tr>
+        <td><%= book.name %></td>
+        <td>Returned</td>
+      </tr>
+      <%end%>
+    <% end %>
+  </tbody>
+</table>
 
 <p>
-	
   <%if current_user.email == @member.email %>
   <strong>Password:</strong><%= @member.password %>
   <%end%>

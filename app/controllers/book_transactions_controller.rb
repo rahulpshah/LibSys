@@ -22,17 +22,39 @@ class BookTransactionsController < ApplicationController
 
   # POST /book_transactions
   # POST /book_transactions.json
-  def create
+  def checkin
+    @book_transaction = BookTransaction.new
+  end
+  def create2
     @book_transaction = BookTransaction.new(book_transaction_params)
 
     respond_to do |format|
       if @book_transaction.save
-        @book_transaction.book.update(status: "Checkout")
+        @book_transaction.book.update(status: "Available")
         format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
         format.json { render :show, status: :created, location: @book_transaction }
       else
         format.html { render :new }
         format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  def create
+    @book_transaction = BookTransaction.new(book_transaction_params)
+
+    member = @book_transaction.member
+    book = @book_transaction.book
+    respond_to do |format|
+      if member.books.where(isbn:book.isbn).count.even?
+        puts "FFUCKCCKKASDNASJD"
+        if @book_transaction.save
+        @book_transaction.book.update(status: "Checkout")
+        format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
+        format.json { render :show, status: :created, location: @book_transaction }
+        else
+          format.html { render :new }
+          format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

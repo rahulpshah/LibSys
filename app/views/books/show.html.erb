@@ -19,6 +19,32 @@
   <%= @book.status %>
 </p>
 <%link_to  "Check Out" , checkout_path(@book.isbn) %>
+<% if is_admin? %>
+<p>Book History</p>
+<%members = @book.members %>
+<table>
+  <thead>
+    <tr>
+      <th>Member Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% members.each_with_index do |member,i| %>
+      
+      <tr>   
+        <td><%= member.name %></td>
+        <% if i.even? %>
+        	<td>Checked Out</td>
+        <%else%>
+        	<td>Checked in</td>
+       	<%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%end%>
 
 <%if is_admin? %>
 <%= link_to 'Edit', edit_book_path(@book) %> 

@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:return,:show, :edit, :update, :destroy]
 
   before_action :is_logged_in?
 
@@ -68,6 +68,11 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
+  def return 
+
+    @book.update(status: "Available")
+    redirect_to root_path
+  end
   def update
     respond_to do |format|
       if @book.update(book_params)

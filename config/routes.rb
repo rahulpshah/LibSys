@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   delete 'logout'   => 'sessions#destroy'
   get    'checkout/:id' => 'book_transactions#new' , as: "checkout"
   post   'checkout' => 'book_transactions#create'
+  
+  get    'checkin/:id' => 'book_transactions#checkin' , as: "checkin"
+  post   'checkin' => 'book_transactions#create2'
+  
 
   resources :books, param: :isbn
   resources :members
