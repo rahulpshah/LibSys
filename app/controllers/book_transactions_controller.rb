@@ -27,16 +27,20 @@ class BookTransactionsController < ApplicationController
   end
   def create2
     @book_transaction = BookTransaction.new(book_transaction_params)
-
-    respond_to do |format|
-      if @book_transaction.save
-        @book_transaction.book.update(status: "Available")
-        format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @book_transaction }
-      else
-        format.html { render :new }
-        format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+    if member.books.where(isbn:book.isbn).count.odd?
+     respond_to do |format|
+        if @book_transaction.save
+         @book_transaction.book.update(status: "Available")
+         format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
+         format.json { render :show, status: :created, location: @book_transaction }
+        else
+         format.html { render :new }
+         format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: 'Book already checked in' 
+    end
     end
   end
   def create
