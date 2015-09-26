@@ -41,7 +41,6 @@ class BookTransactionsController < ApplicationController
     else
       redirect_to root_path, notice: 'Book already checked in' 
     end
-    end
   end
   def create
     @book_transaction = BookTransaction.new(book_transaction_params)
