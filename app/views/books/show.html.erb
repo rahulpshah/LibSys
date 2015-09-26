@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Isbn:</strong>
+  <%= @book.isbn %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @book.name %>
+</p>
+
+<p>
+  <strong>Authors:</strong>
+  <%= @book.authors %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @book.status %>
+</p>
+<%link_to  "Check Out" , checkout_path(@book.isbn) %>
+
+<%if is_admin? %>
+<%= link_to 'Edit', edit_book_path(@book) %> 
+<%end%>

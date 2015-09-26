@@ -1,0 +1,13 @@
+<%= form_tag books_path, :method => 'get' do %>
+  
+    <%= text_field_tag :search, params[:search] %>
+    <%= radio_button_tag(:search_option, "name", checked:true) %>
+	<%= label_tag(:search_option, "Search by Title") %>
+    <%= radio_button_tag(:search_option, "isbn") %>
+	<%= label_tag(:search_option, "Search by ISBN") %>
+	<%= radio_button_tag(:search_option, "author") %>
+	<%= label_tag(:search_option, "Search by Author") %>
+    
+    <%= submit_tag "Search", :name => nil %>
+  	
+<% end %>
