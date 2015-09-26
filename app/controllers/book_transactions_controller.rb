@@ -44,19 +44,21 @@ class BookTransactionsController < ApplicationController
 
     member = @book_transaction.member
     book = @book_transaction.book
-    respond_to do |format|
-      if member.books.where(isbn:book.isbn).count.even?
-        puts "FFUCKCCKKASDNASJD"
-        if @book_transaction.save
-        @book_transaction.book.update(status: "Checkout")
-        format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @book_transaction }
-        else
-          format.html { render :new }
-          format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+    if member.books.where(isbn:book.isbn).count.even?
+        respond_to do |format|
+          if @book_transaction.save
+           @book_transaction.book.update(status: "Checkout")
+           format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
+            format.json { render :show, status: :created, location: @book_transaction }
+          else
+            format.html { render :new }
+            format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+          end
         end
-      end
+    else
+      redirect_to root_path, notice: 'Book already checkout' 
     end
+
   end
 
   # PATCH/PUT /book_transactions/1
