@@ -18,6 +18,10 @@
   <strong>Status:</strong>
   <%= @book.status %>
 </p>
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
 <%link_to  "Check Out" , checkout_path(@book.isbn) %>
 <% if is_admin? %>
 <p>Book History</p>
