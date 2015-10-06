@@ -3,6 +3,7 @@ class CreateBookTransactions < ActiveRecord::Migration
     create_table :book_transactions do |t|
     	t.column :book_id, :integer
     	t.column :member_id, :integer
+    	t.timestamps null: false
     end
   end
   def down
