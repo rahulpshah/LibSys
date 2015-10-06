@@ -1,24 +1,24 @@
 <div id="notice"><%= flash.now[:notice] %></div>
 <%= form_for(:session, url: login_path) do |f| %>
-  <div class="field">
+<div class="container">  
+  <div class="form-group">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password %><br>
     <%= f.password_field :password %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label "Option" %>
     <p><%= f.radio_button :option, "member" , checked: true %>
     <%= f.label :option, "Member", :value => "member" %></p>
     <p><%= f.radio_button :option ,"admin" %>
     <%= f.label :option, "Admin", :value => "admin"  %></p>
-    
-    
   </div>
-  <div class="actions">
-    <%= f.submit "Login" %>
+  <div class="form-group">
+    <%= f.submit "Login", class: "btn btn-success"  %>
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
   </div>
+</div>
 <% end %>
