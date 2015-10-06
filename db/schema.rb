@@ -11,13 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924105006) do
-<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20151001174648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-=======
->>>>>>> search
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -28,28 +25,36 @@ ActiveRecord::Schema.define(version: 20150924105006) do
   end
 
   create_table "book_transactions", force: :cascade do |t|
-<<<<<<< HEAD
     t.integer "book_id"
-=======
-    t.integer "isbn"
->>>>>>> search
     t.integer "member_id"
   end
 
-  create_table "books", primary_key: "isbn", force: :cascade do |t|
+  create_table "books", force: :cascade do |t|
+    t.integer  "isbn"
     t.string   "name"
     t.text     "authors"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "status",     default: "Available"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.string   "status",      default: "Available"
+    t.string   "description", default: "Description yet to be added"
   end
 
   create_table "members", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+  end
+
+  create_table "suggestions", force: :cascade do |t|
+    t.integer  "isbn"
+    t.string   "book_name"
+    t.string   "author"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

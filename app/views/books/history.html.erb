@@ -1,0 +1,24 @@
+<p>Book History</p>
+<%members = @book.list_of_owners %>
+<table>
+  <thead>
+    <tr>
+      <th>Member Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% members.each_with_index do |member,i| %>
+      <%unless member.nil? %>
+        <tr>   
+          <td><%= member.name%></td>
+          <% if i.even? %>
+          	<td>Checked Out</td>
+          <%else%>
+          	<td>Returned</td>
+         	<%end%>
+        </tr>
+      <%end%>
+    <% end %>
+  </tbody>
+</table>

@@ -50,7 +50,6 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'validates_email_format_of'
 
-
 group :production do
   gem 'psql'
   gem 'pg'

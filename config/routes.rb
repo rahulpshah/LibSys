@@ -9,14 +9,15 @@ Rails.application.routes.draw do
   get    'login'    => 'sessions#new'
   post   'login'    => 'sessions#create'
   delete 'logout'   => 'sessions#destroy'
-  get    'checkout/:id' => 'book_transactions#new' , as: "checkout"
-  post   'checkout' => 'book_transactions#create'
+  get    'checkout/:id' => 'book_transactions#checkout' , as: "checkout"
+  post   'checkout' => 'book_transactions#create1'
   
   get    'checkin/:id' => 'book_transactions#checkin' , as: "checkin"
   post   'checkin' => 'book_transactions#create2'
   
-
-  resources :books, param: :isbn
+  get    'history/:id' => 'books#history' , as: "history"
+  get    'member_history/:id' => 'members#member_history' , as: "member_history"
+  resources :books
   resources :members
   resources :book_transactions
   # The priority is based upon order of creation: first created -> highest priority.

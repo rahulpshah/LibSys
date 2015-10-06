@@ -26,8 +26,13 @@
           <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
         <%if book.status == "Available" %>
-          <td><%= link_to 'Checkout', checkout_path(book.isbn) %></td>
-        <%end%>
+          <td><%= link_to 'Checkout', checkout_path(book.id) %></td>
+        <%else%>
+        
+          <%if is_admin? or current_user.books.where(isbn: book.isbn).count.odd?  %>
+            <td><%= link_to 'Return Book', checkin_path(book.id) %></td>
+          <%end%>
+        <%end%> 
       </tr>
     <% end %>
     <% if is_admin? %>

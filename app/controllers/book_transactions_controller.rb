@@ -12,22 +12,40 @@ class BookTransactionsController < ApplicationController
   end
 
   # GET /book_transactions/new
-  def new
+  def new 
     @book_transaction = BookTransaction.new
   end
+
+  def create
+    @book_transaction = BookTransaction.new(book_transaction_params)
+        respond_to do |format|
+          if @book_transaction.save
+           @book_transaction.book.update(status: "Checkout")
+           format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
+            format.json { render :show, status: :created, location: @book_transaction }
+          else
+            format.html { render :new }
+            format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
+          end
+        end
+    
+  end
+
 
   # GET /book_transactions/1/edit
   def edit
   end
 
+
   # POST /book_transactions
   # POST /book_transactions.json
-  def checkin
+ def checkin
     @book_transaction = BookTransaction.new
   end
   def create2
-    @book_transaction = BookTransaction.new(book_transaction_params)
-    if member.books.where(isbn:book.isbn).count.odd?
+    book = Book.find(return_params[:book_id])
+    @book_transaction = BookTransaction.new(book_id:book.id,member_id:book.current_owner.id)
+    unless book.available?
      respond_to do |format|
         if @book_transaction.save
          @book_transaction.book.update(status: "Available")
@@ -39,29 +57,31 @@ class BookTransactionsController < ApplicationController
         end
       end
     else
-      redirect_to root_path, notice: 'Book already checked in' 
+        redirect_to root_path, notice: 'Book already returned' 
     end
   end
-  def create
+  def checkout
+    @book_transaction = BookTransaction.new
+  end
+  
+  def create1
     @book_transaction = BookTransaction.new(book_transaction_params)
-
     member = @book_transaction.member
     book = @book_transaction.book
-    if member.books.where(isbn:book.isbn).count.even?
+    if book.current_owner.nil?
         respond_to do |format|
           if @book_transaction.save
            @book_transaction.book.update(status: "Checkout")
            format.html { redirect_to root_path, notice: 'Book transaction was successfully created.' }
             format.json { render :show, status: :created, location: @book_transaction }
           else
-            format.html { render :new }
+            format.html { redirect_to checkout_path(book), notice: "member id not entered" }
             format.json { render json: @book_transaction.errors, status: :unprocessable_entity }
           end
         end
     else
       redirect_to root_path, notice: 'Book already checkout' 
     end
-
   end
 
   # PATCH/PUT /book_transactions/1
@@ -95,7 +115,12 @@ class BookTransactionsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    def return_params
+      params.require(:book_transaction).permit(:book_id)
+
+    end
     def book_transaction_params
-      params.require(:book_transaction).permit(:book_id,  :member_id)
+      params.require(:book_transaction).permit(:book_id,:member_id)
+
     end
 end

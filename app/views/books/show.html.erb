@@ -22,32 +22,9 @@
   <strong>Description:</strong>
   <%= @book.description %>
 </p>
-<%link_to  "Check Out" , checkout_path(@book.isbn) %>
+<%link_to  "Check Out" , checkout_path(@book.id) %>
 <% if is_admin? %>
-<p>Book History</p>
-<%members = @book.members %>
-<table>
-  <thead>
-    <tr>
-      <th>Member Name</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% members.each_with_index do |member,i| %>
-      
-      <tr>   
-        <td><%= member.name %></td>
-        <% if i.even? %>
-        	<td>Checked Out</td>
-        <%else%>
-        	<td>Checked in</td>
-       	<%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= link_to "View History", history_path(@book.id) %>
 <%end%>
 
 <%if is_admin? %>

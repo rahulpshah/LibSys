@@ -1,4 +1,4 @@
-<%= form_for(:book_transaction, url: '/checkin') do |f| %>
+<%= form_for(:book_transaction,url: '/checkin') do |f| %>
   <% if @book_transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@book_transaction.errors.count, "error") %> prohibited this book_transaction from being saved:</h2>
@@ -10,23 +10,13 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <p>You have checked in Book with isbn <%= params[:id]%> <p>
+    <% b = Book.find(params[:id]) %>
+    <p>You are returning <%= b.name%> <p>
     <% f.label :book_id %><br>
-    <%= f.number_field :book_id , value: params[:id], hidden:true%>
-  </div>
-  <div class="field">
-    <% f.label :member_id %><br>
-    <%if is_admin?%>
-      <%= f.text_field :member_id %>
-    <%else%>
-      <p>Under <%= current_user.name %> <p>
-      <%= f.text_field :member_id , value: current_user.id, hidden:true%>
-    <%end%>
-
+    <%= f.number_field :book_id , value: b.id , hidden:true%>
   </div>
   <div class="actions">
-    <%= f.submit " Confirm Checkin" %>
+    <%= f.submit " Confirm Return" %>
   </div>
 <% end %>

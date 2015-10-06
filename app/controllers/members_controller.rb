@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_member, only: [:show, :edit, :update, :destroy, :member_history]
   before_action :checkauth?, only: :index
   
   def checkauth?
@@ -11,7 +11,12 @@ class MembersController < ApplicationController
   def signup
     @member = Member.new
   end
-
+  def member_history
+    if(!is_admin? && current_user != @member)
+      flash[:privileges]="Not enough privileges"
+      redirect_to root_path
+    end
+  end
   def login
   end
   def index
@@ -25,7 +30,7 @@ class MembersController < ApplicationController
 
   # GET /members/new
   def new
-    
+    @member = Member.new
   end
 
   # GET /members/1/edit
@@ -39,7 +44,9 @@ class MembersController < ApplicationController
     @member.email.downcase!
     respond_to do |format|
       if @member.save
-        log_in(@member)
+        unless is_admin?
+          log_in(@member)
+        end
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
         format.json { render :show, status: :created, location: @member }
       else
@@ -66,10 +73,13 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    @member.destroy
-    respond_to do |format|
-      format.html { redirect_to members_url, notice: 'Member was successfully destroyed.' }
-      format.json { head :no_content }
+    if @member.destroy
+      respond_to do |format|
+       format.html { redirect_to members_url, notice: 'Member was successfully destroyed.' }
+       format.json { head :no_content }
+      end
+    else
+      redirect_to @member,notice: "Cannot delete member has active checkouts"
     end
   end
 

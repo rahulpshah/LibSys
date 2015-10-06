@@ -1,12 +1,11 @@
 class CreateBooks < ActiveRecord::Migration
   def up
-    create_table :books , id: false do |t|
-      
+    create_table :books do |t|
       t.integer :isbn
       t.string :name
       t.text :authors
       t.timestamps null: false
-      t.primary_key :isbn
+      
     end
   end
   def down
