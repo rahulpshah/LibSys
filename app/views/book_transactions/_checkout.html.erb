@@ -1,4 +1,4 @@
-
+<p id="notice"><%= notice %></p>
 <%= form_for(:book_transaction, url: '/checkout') do |f| %>
   <% if @book_transaction.errors.any? %>
     <div id="error_explanation">
@@ -11,10 +11,10 @@
     </div>
   <% end %>
   <div class="field">
-    <% b = Book.find(params[:id]) %>
-    <p> You have checked out <%= b.name %> </p>
+
+    <p> You have checked out <%= @book.name %> </p>
     <p><%  f.label :book_id %></p>
-    <p><%= f.number_field :book_id , value: b.id , hidden:true%></p>
+    <p><%= f.number_field :book_id , value: @book.id , hidden:true%></p>
   </div>
   <div class="field">
     <% f.label :member_id %><br>

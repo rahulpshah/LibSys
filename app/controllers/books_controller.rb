@@ -8,8 +8,8 @@ class BooksController < ApplicationController
   # GET /books.json
   before_action :checkauth?, only: [:new, :edit, :update, :destroy, :history]
   def history
-    
   end
+
   def checkauth?
     unless is_admin?
       flash[:privileges]="Not enough privileges"
