@@ -1,1 +1,7 @@
-<p><%= link_to "Home" , "/" %><%= link_to '|Back', :back %><%=  link_to '|Logout', logout_path, method: "delete" if logged_in?%></p>
+<div id="footer" class="container">
+    <ul class="nav nav-pills">
+    	<li role="presentation"><%= link_to "Home" , "/" %></li>
+		<li role="presentation"><%= link_to 'Back', :back %></li>
+		<li role="presentation"><%=  link_to 'Logout', logout_path, method: "delete" if logged_in?%></li>
+	</ul>
+</div>

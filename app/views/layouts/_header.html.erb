@@ -1,14 +1,6 @@
-<div>
-<%x = logged_in? %>
-<% unless x.nil? %>
-	<p>Hi, <%= x.name %></p>
-<%end%>
+<div class="container">
+	  <div class="jumbotron">
+	    <h1>LibSys</h1>      
+	    <p>A library management system</p>
+	  </div>
 </div>
-<%#if logged_in? %>
-	<%=# link_to "My Account" , current_user %>
-	<%#if#Ω current_user.class.to_s == "Member" %>
-		
-	<%#else%>
-		<%= #link_to "My Account" , current_user %>
-	<%#end%>
-<%#end%>

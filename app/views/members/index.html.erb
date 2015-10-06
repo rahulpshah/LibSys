@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1>Listing Members</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>ID</th>
@@ -15,9 +15,9 @@
         <td><%= member.id %></td>
         <td><%= member.name %></td>
         <td><%= member.email %></td>
-        <td><%= link_to 'Show', member %></td>
-        <td><%= link_to 'Edit', edit_member_path(member) %></td>
-        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', member,class: "btn-sm btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_member_path(member) ,class: "btn-sm btn-warning"%></td>
+        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } ,class: "btn-sm btn-danger"%></td>
       </tr>
     <% end %>
   </tbody>

@@ -10,13 +10,13 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
+  <div class="form-group">
 
     <p> You have checked out <%= @book.name %> </p>
     <p><%  f.label :book_id %></p>
     <p><%= f.number_field :book_id , value: @book.id , hidden:true%></p>
   </div>
-  <div class="field">
+  <div class="form-group">
     <% f.label :member_id %><br>
     <% if is_admin? %>
       <p>Please enter the id of the member <p>
@@ -25,7 +25,7 @@
       <%= f.text_field :member_id , value: current_user.id, hidden:true%>
     <%end%>
   </div>
-  <div class="actions">
+  <div class="form-group">
     <%= f.submit " Confirm Checkout" %>
   </div>
 <% end %>

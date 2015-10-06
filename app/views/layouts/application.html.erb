@@ -7,12 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="container">
-	  <div class="jumbotron">
-	    <h1>LibSys</h1>      
-	    <p>A library management system</p>
-	  </div>
-	</div>
+	
+	<%= render partial: "layouts/header" %>
 	<div id="main-container" class="container">
 	    <div class="row">
 	      	<%x = logged_in? %>
@@ -20,13 +16,16 @@
 	        	<div id="sidebar" class="col-xs-3">
 	        		<p>Hi, <%= x.name %></p>
 	        		<ul class="nav nav-pills nav-stacked">
-	        			<li role="presentation" class="active"><%= link_to 'My Account', current_user %></li>
-						<li role="presentation"><%= link_to 'Show all Books', books_path %></li>
+	        			<li role="presentation" class="<%= active_class(current_user)%>" ><%= link_to 'My Account', current_user %></li>
+						
 						<% if is_admin? %>	
-					  		<li role="presentation"><%= link_to 'Show all Admins', admins_path %></li>
-					  		<li role="presentation"><%= link_to 'Show all Members', members_path %></li>
-					  		<li role="presentation"><%= link_to 'Add an Admin', new_admin_path %></li>
-					  		<li role="presentation"><%= link_to 'Add a Book', new_book_path %></li>
+							<li role="presentation" class="<%= active_class(books_path)%>"><%= link_to ' Manage all Books', books_path %></li>
+					  		<li role="presentation" class="<%= active_class(admins_path)%>" ><%= link_to 'Manage all Admins', admins_path %></li>
+					  		<li role="presentation" class="<%= active_class(members_path)%>"><%= link_to 'Manage all Members', members_path %></li>
+					  		<li role="presentation" class="<%= active_class(new_admin_path)%>"><%= link_to 'Add an Admin', new_admin_path %></li>
+					  		<li role="presentation" class="<%= active_class(new_book_path)%>"><%= link_to 'Add a Book', new_book_path %></li>
+						<%else%>
+						<li role="presentation" class="<%= active_class(books_path)%>"><%= link_to ' Show all Books', books_path %></li>
 						<%end%>
 					</ul>
 	        	</div>
@@ -40,12 +39,7 @@
 	        <%end%>    
 	    </div>
 	</div>
-	<div class="container">
-		        <ul class="nav nav-pills">
-		        	<li role="presentation" class="active"><%= link_to "Home" , "/" %></li>
-		  			<li role="presentation"><%= link_to 'Back', :back %></li>
-		  			<li role="presentation"><%=  link_to 'Logout', logout_path, method: "delete" if logged_in?%></li>
-				</ul>
-	</div>
+	<%= render partial: "layouts/footer" %>
+	
 </body>
 </html>

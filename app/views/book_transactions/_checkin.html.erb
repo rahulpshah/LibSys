@@ -10,13 +10,13 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
+  <div class="form-group">
     <% b = Book.find(params[:id]) %>
     <p>You are returning <%= @book.name%> <p>
     <% f.label :book_id %><br>
     <%= f.number_field :book_id , value: @book.id , hidden:true%>
   </div>
-  <div class="actions">
+  <div class="form-group">
     <%= f.submit " Confirm Return" %>
   </div>
 <% end %>

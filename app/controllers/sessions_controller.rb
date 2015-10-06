@@ -17,8 +17,6 @@ class SessionsController < ApplicationController
     end
     
     if user && user.password == (params[:session][:password])
-
-      flash[:notice] = "Welcome, #{user.name} to LibSys!"
       log_in user
       redirect_to root_path
       # Log the user in and redirect to the user's show page.
@@ -28,7 +26,7 @@ class SessionsController < ApplicationController
   	#	redirect_to member
       # Log the user in and redirect to the user's show page.
     else
-      flash.now[:notice] = 'Invalid email/password combination'
+      flash[:danger] = 'Invalid email/password combination'
   	  render 'new'
   	end
   end
