@@ -49,7 +49,7 @@ class BookTransactionsController < ApplicationController
  def checkin
     @book = Book.find_by_id(params[:id])
     if( @book.nil?)
-      redirect_to root_path,notice:"Book not found"
+      redirect_to root_path , notice:"Book not found"
       return
     end
     @book_transaction = BookTransaction.new
@@ -144,6 +144,8 @@ class BookTransactionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book_transaction
       @book_transaction = BookTransaction.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, notice:"Book Transaction not found"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

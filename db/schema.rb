@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001174648) do
+ActiveRecord::Schema.define(version: 20151006230856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20151001174648) do
 
   create_table "suggestions", force: :cascade do |t|
     t.integer  "isbn"
-    t.string   "book_name"
-    t.string   "author"
+    t.string   "name"
+    t.string   "authors"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

@@ -1,0 +1,24 @@
+<%= form_for(:suggestion, url: '/approve') do |f| %>
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book_transaction from being saved:</h2>
+      <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>The Details of the books are as follows:</p>
+  <div class="form-group">
+    <p><%  f.label :id %></p>
+    <p><%= f.number_field :id , value: @suggestion.id , hidden:true%></p>
+    <p> ISBN: <%= @suggestion.isbn %> </p>
+    <p> Name: <%= @suggestion.name %> </p>
+    <p> Authors: <%= @suggestion.authors %> </p>
+    <p> Description: <%= @suggestion.description %> </p>
+  </div>
+  <div class="form-group">
+    <%= f.submit " Confirm Approval" %>
+  </div>
+<% end %>

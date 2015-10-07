@@ -1,1 +1,1 @@
-json.extract! @suggestion, :id, :string, :string, :integer, :text, :created_at, :updated_at
+json.extract! @suggestion, :id, :isbn, :name, :authors, :description, :created_at, :updated_at

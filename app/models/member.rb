@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
 	validates :name, format: { :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/ }
 	
 	has_many :book_transactions
+	has_many :suggestions
   	has_many :books, through: :book_transactions
 
   	before_destroy :active_checkouts?

@@ -1,5 +1,5 @@
 class SuggestionsController < ApplicationController
-  before_action :set_suggestion, only: [:show, :edit, :update, :destroy]
+  before_action :set_suggestion, only: [:show, :edit, :update, :destroy,:approve]
 
   # GET /suggestions
   # GET /suggestions.json
@@ -13,19 +13,37 @@ class SuggestionsController < ApplicationController
   end
 
   # GET /suggestions/new
-  def new
+  def new 
     @suggestion = Suggestion.new
   end
 
   # GET /suggestions/1/edit
   def edit
   end
-
+  def create1
+    #raise "error"
+    suggestion = Suggestion.find(get_params[:id])
+    @book = suggestion.get_book
+    respond_to do |format|
+      if @book.save
+        #raise 'error'
+        suggestion.destroy
+        format.html { redirect_to books_path , notice: 'Book was successfully added' }
+        format.json { render :show, status: :created, location: @suggestion }
+      else
+        format.html { render approve_path() }
+        format.json { render json: @suggestion.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  def approve
+    #raise "error"
+   @book = @suggestion.get_book
+  end
   # POST /suggestions
   # POST /suggestions.json
   def create
     @suggestion = Suggestion.new(suggestion_params)
-
     respond_to do |format|
       if @suggestion.save
         format.html { redirect_to @suggestion, notice: 'Suggestion was successfully created.' }
@@ -69,6 +87,11 @@ class SuggestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def suggestion_params
-      params.require(:suggestion).permit(:integer, :string, :string, :text)
+      params.require(:suggestion).permit(:isbn, :name, :authors, :description)
+      rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, notice:"Suggestion not found"
+    end
+    def get_params
+      params.require(:suggestion).permit(:id)
     end
 end

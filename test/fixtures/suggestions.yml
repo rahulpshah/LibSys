@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  string: 
-  string: 
-  integer: 
-  text: 
+  isbn: 1
+  name: MyString
+  authors: MyString
+  description: MyText
 
 two:
-  string: 
-  string: 
-  integer: 
-  text: 
+  isbn: 1
+  name: MyString
+  authors: MyString
+  description: MyText

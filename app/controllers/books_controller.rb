@@ -105,6 +105,8 @@ class BooksController < ApplicationController
     #end
     def set_book
       @book = Book.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to root_path, notice:"Book not found"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

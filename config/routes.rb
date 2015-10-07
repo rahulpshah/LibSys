@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :suggestions
   resources :admins
   
 
@@ -17,9 +18,14 @@ Rails.application.routes.draw do
   
   get    'history/:id' => 'books#history' , as: "history"
   get    'member_history/:id' => 'members#member_history' , as: "member_history"
+  
+  get 'approve/:id' => 'suggestions#approve', as:'approve'
+  post 'approve' => 'suggestions#create1'
+
   resources :books
   resources :members
   resources :book_transactions
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

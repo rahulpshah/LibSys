@@ -1,4 +1,4 @@
-<%= form_for(:book_transaction,url: '/checkin') do |f| %>
+<%= form_for(:book_transaction , url: '/checkin') do |f| %>
   <% if @book_transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@book_transaction.errors.count, "error") %> prohibited this book_transaction from being saved:</h2>

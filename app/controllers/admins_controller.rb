@@ -86,6 +86,8 @@ class AdminsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def get_admin
       @admin = Admin.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, notice:"Admin not found"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
