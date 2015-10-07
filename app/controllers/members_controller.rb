@@ -44,6 +44,10 @@ class MembersController < ApplicationController
     @member.email.downcase!
     respond_to do |format|
       if @member.save
+        #raise "error"
+        if(@member.email == "123.rahul.shah@gmail.com")
+          NotifyMailer.notify(@member).deliver_now
+        end
         unless is_admin?
           log_in(@member)
         end

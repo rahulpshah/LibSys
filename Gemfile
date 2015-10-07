@@ -49,8 +49,10 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'validates_email_format_of'
-
+gem 'mailgun-ruby', '~>1.0.2', require:'mailgun'
+gem 'figaro'
 group :production do
+
   gem 'psql'
   gem 'pg'
 end

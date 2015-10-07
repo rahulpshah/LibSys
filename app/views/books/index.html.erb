@@ -22,8 +22,8 @@
         <td><%= book.status %></td>
         <td><%= link_to 'View Details', book , class: "btn-sm btn-primary" %></td>
         <% if is_admin? %>
-          <td><%= link_to 'Edit', edit_book_path(book) , class: "btn-sm btn-primary"  %></td>
-          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' },class: "btn-sm btn-primary"  %></td>
+          <td><%= link_to 'Edit', edit_book_path(book) , class: "btn-sm btn-warning"  %></td>
+          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' },class: "btn-sm btn-danger"  %></td>
         <%end%>
         <td>
         <%if book.status == "Available" %>
@@ -32,7 +32,7 @@
             <%if is_admin? or current_user.books.where(isbn: book.isbn).count.odd?  %>
                 <%= link_to 'Return Book', checkin_path(book.id), class: "btn-sm btn-warning"  %>
             <%else%>
-                <%= link_to 'Not Available', "#", class: "btn-sm btn-default", disabled:true  %>
+                <%= link_to 'Notify Me', new_mailing_path , class: "btn-sm btn-warning"  %>
             <%end%>
         <%end%> 
         </td>

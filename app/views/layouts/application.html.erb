@@ -24,8 +24,10 @@
 					  		<li role="presentation" class="<%= active_class(members_path)%>"><%= link_to 'Manage all Members', members_path %></li>
 					  		<li role="presentation" class="<%= active_class(new_admin_path)%>"><%= link_to 'Add an Admin', new_admin_path %></li>
 					  		<li role="presentation" class="<%= active_class(new_book_path)%>"><%= link_to 'Add a Book', new_book_path %></li>
+					  		<li role="presentation" class="<%= active_class(suggestions_path)%>"><%= link_to 'Manage Suggestions', suggestions_path %></li>
 						<%else%>
 						<li role="presentation" class="<%= active_class(books_path)%>"><%= link_to ' Show all Books', books_path %></li>
+						<li role="presentation" class="<%= active_class(new_suggestion_path)%>"><%= link_to ' Make a suggestion', new_suggestion_path %></li>
 						<%end%>
 					</ul>
 	        	</div>

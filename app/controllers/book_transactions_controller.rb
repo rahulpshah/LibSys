@@ -1,3 +1,4 @@
+
 class BookTransactionsController < ApplicationController
   before_action :set_book_transaction, only: [:show, :edit, :update, :destroy]
   # GET /book_transactions

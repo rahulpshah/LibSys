@@ -15,7 +15,9 @@
   <strong>Email:</strong>
   <%= @member.email %>
 </p>
-
+<%if @member.checked_out_books.empty? %>
+  <p>There are no books checked out.</p>
+<%end%>
 <p>List of books currently checked out</p>
 
 <table class="table table-striped">

@@ -1,5 +1,8 @@
 <p>Book History</p>
 <%members = @book.list_of_owners %>
+<%if members.empty? %>
+  <p>There are no history of this book.</p>
+<%end%>
 <table class="table table-striped">
   <thead>
     <tr>

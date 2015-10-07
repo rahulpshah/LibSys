@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
+<%if @book_transactions.empty? %>
+  <p>There are no books.</p>
+<%end%>
 <h1>Listing Book Transactions</h1>
 <table class="table table-striped">
   <thead>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :mailing_lists
   resources :suggestions
   resources :admins
   

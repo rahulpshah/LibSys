@@ -83,13 +83,14 @@ class SuggestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_suggestion
       @suggestion = Suggestion.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, notice:"Suggestion not found"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def suggestion_params
       params.require(:suggestion).permit(:isbn, :name, :authors, :description)
-      rescue ActiveRecord::RecordNotFound
-      redirect_to root_path, notice:"Suggestion not found"
+      
     end
     def get_params
       params.require(:suggestion).permit(:id)

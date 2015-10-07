@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<%if @suggestions.empty? %>
+  <p>There are no suggestions.</p>
+<%end%>
 <h1>Listing Suggestions</h1>
 
 <table class="table table-striped">
@@ -31,4 +33,3 @@
 
 <br>
 
-<%= link_to 'New Suggestion', new_suggestion_path %>

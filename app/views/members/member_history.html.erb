@@ -1,4 +1,7 @@
 <p>Member History</p>
+<%if @member.get_history.empty? %>
+  <p>No history found.</p>
+<%end%>
 <%books = @member.get_history %>
 <table class="table table-striped">
   <thead>

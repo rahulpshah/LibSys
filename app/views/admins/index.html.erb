@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<%if @admins.empty? %>
+  <p>There are no other admins.</p>
+<%end%>
 <h1>Listing Admins</h1>
 
 <table class="table table-striped">
