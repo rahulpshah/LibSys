@@ -1,9 +1,10 @@
+<p id="notice"><%= notice %></p>
 <%= form_for(:suggestion, url: '/approve') do |f| %>
-  <% if @book.errors.any? %>
+  <% if @suggestion.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book_transaction from being saved:</h2>
+      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this suggestion from being saved:</h2>
       <ul>
-      <% @book.errors.full_messages.each do |message| %>
+      <% @suggestion.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

@@ -21,9 +21,10 @@ class SuggestionsController < ApplicationController
   def edit
   end
   def create1
+    
+    @suggestion = Suggestion.find(get_params[:id])
+    @book = @suggestion.get_book
     #raise "error"
-    suggestion = Suggestion.find(get_params[:id])
-    @book = suggestion.get_book
     respond_to do |format|
       if @book.save
         #raise 'error'
@@ -31,7 +32,7 @@ class SuggestionsController < ApplicationController
         format.html { redirect_to books_path , notice: 'Book was successfully added' }
         format.json { render :show, status: :created, location: @suggestion }
       else
-        format.html { render approve_path() }
+        format.html { redirect_to approve_path(@suggestion.id), notice: "Suggestion could not be added" }
         format.json { render json: @suggestion.errors, status: :unprocessable_entity }
       end
     end
