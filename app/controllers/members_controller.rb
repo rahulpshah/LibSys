@@ -1,7 +1,6 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy, :member_history]
   before_action :checkauth?, only: [:index, :edit, :show, :destroy, :member_history, :update]
-  
   def checkauth?
     unless is_admin? || current_user == @member
       flash[:privileges]="Not enough privileges"
