@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
 
-  resources :mailing_lists
+  resources :subscribers
   resources :suggestions
   resources :admins
   
@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   
   get 'approve/:id' => 'suggestions#approve', as:'approve'
   post 'approve' => 'suggestions#create1'
+
+  get 'notify/:id' => 'subscribers#notify' , as: 'notify'
+  post 'notify' => 'subscribers#create'
 
   resources :books
   resources :members

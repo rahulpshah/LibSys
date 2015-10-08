@@ -1,0 +1,29 @@
+<%= form_for(:subscriber, url: '/notify') do |f| %>
+  <% if @subscriber.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited this subscriber from being saved:</h2>
+
+      <ul>
+      <% @subscriber.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <p>You have asked to be notified for <%= @book.name %></p>
+    <%= f.number_field :book_id ,value: @book.id ,hidden:true %>
+  </div>
+  <div class="form-group">
+    <%if is_admin? %>
+    <p>Please enter the member id</p>
+    <%= f.number_field :member_id %>
+    <%else%>
+        <%= f.number_field :member_id , value: current_user.id, hidden:true %>
+    <%end%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

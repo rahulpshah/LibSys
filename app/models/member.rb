@@ -7,9 +7,13 @@ class Member < ActiveRecord::Base
 	validates :name, presence: true, length: { maximum: 50 }
 	validates :name, format: { :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/ }
 	
-	has_many :book_transactions
 	has_many :suggestions
+
+	has_many :book_transactions
   	has_many :books, through: :book_transactions
+
+  	has_many :subscribers
+  	has_many :books, through: :subscribers
 
   	before_destroy :active_checkouts?
   	def get_history

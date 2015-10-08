@@ -13,6 +13,9 @@ class Book < ActiveRecord::Base
 
 	has_many :book_transactions
   	has_many :ordered_members, -> { order(id: :asc) }, through: :book_transactions, source: :members
+
+  	has_many :subscribers
+  	has_many :members, through: :subscribers
 	
 	before_destroy :available?
 	def list_of_owners

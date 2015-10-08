@@ -29,10 +29,10 @@
         <%if book.status == "Available" %>
             <%= link_to 'Check out', checkout_path(book.id),class: "btn-sm btn-success"  %></td>
         <%else%>
-            <%if is_admin? or current_user.books.where(isbn: book.isbn).count.odd?  %>
+            <%if is_admin? or book.current_owner == current_user  %>
                 <%= link_to 'Return Book', checkin_path(book.id), class: "btn-sm btn-warning"  %>
             <%else%>
-                <%= link_to 'Notify Me', new_mailing_path , class: "btn-sm btn-warning"  %>
+                <%= link_to 'Notify Me', notify_path(book.id) , class: "btn-sm btn-default"  %>
             <%end%>
         <%end%> 
         </td>
