@@ -68,13 +68,15 @@ class BookTransactionsController < ApplicationController
             @book_transaction = BookTransaction.new(book_id:book.id,member_id:book.current_owner.id)
             respond_to do |format|
                 if @book_transaction.save
+                    #raise "error"
                     @book_transaction.book.update(status: "Available")
-                    @subscribers = Subscriber.where(book_id:@book_transaction.book_id)
-                    
-                    @members = @subscribers.map{|x| x.member}
-                    @subscribers.destroy_all
-                    @members.each do|member|
-                        NotifyMailer.notify(member,@book_transaction.book).deliver_now
+                    if Rails.env == "development"
+                      @subscribers = Subscriber.where(book_id:@book_transaction.book_id)
+                      @members = @subscribers.map{|x| x.member}
+                      @subscribers.destroy_all
+                      @members.each do|member|
+                          NotifyMailer.notify(member,@book_transaction.book).deliver_now
+                        end
                     end
                     format.html { redirect_to root_path, notice: 'Book Returned.' }
                     format.json { render :show, status: :created, location: @book_transaction }

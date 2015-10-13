@@ -27,7 +27,6 @@ class SuggestionsController < ApplicationController
     #raise "error"
     respond_to do |format|
       if @book.save
-        #raise 'error'
         @suggestion.destroy
         format.html { redirect_to books_path , notice: 'Book was successfully added' }
         format.json { render :show, status: :created, location: @suggestion }
