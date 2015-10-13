@@ -4,11 +4,13 @@
     <label for="search">Enter keyword here</label>
     <%= text_field_tag :search, params[:search] ,class: "search"%>
     <%= radio_button_tag(:search_option, "name", checked:true) %>
-  <%= label_tag :search_option, "Search by Title" ,class: "search" %>
+  <%= label_tag :search_option, "Title" ,class: "search" %>
     <%= radio_button_tag(:search_option, "isbn") %>
-  <%= label_tag :search_option, "Search by ISBN" ,class: "search" %>
+  <%= label_tag :search_option, "ISBN" ,class: "search" %>
   <%= radio_button_tag(:search_option, "author") %>
-  <%= label_tag :search_option, "Search by Author"  ,class: "search"%>
+  <%= label_tag :search_option, "Author"  ,class: "search"%>
+  <%= radio_button_tag(:search_option, "description") %>
+  <%= label_tag :search_option, "Description"  ,class: "search"%>
   <%= submit_tag "Search", :name => nil ,class: "btn-sm btn-primary" %>
   </div>
 <% end %>
