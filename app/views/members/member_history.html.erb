@@ -6,9 +6,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Book Name</th>
+      <th>Book isbn</th>
+      <th>Book name</th>
       <th>Action</th>
-      <th>Date</th>
     </tr>
   </thead>
 
@@ -17,8 +17,8 @@
       <%unless book.first[0].nil? %>
         <tr>   
           <td><%= book.first[0].isbn %></td>
+          <td><%= book.first[0].name %></td>
           <td><%= book.first[1] %></td>
-          <td><%= book.first[0].created_at %></td>
       <%end%>
         </tr>
     <%end%>
