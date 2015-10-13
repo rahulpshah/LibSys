@@ -3,6 +3,13 @@ class SubscribersController < ApplicationController
 
   # GET /subscribers
   # GET /subscribers.json
+  before_action :checkauth?, only: [ :index,:show, :edit, :update, :destroy]
+  def checkauth?
+    unless is_admin?
+      flash[:privileges]="Not enough privileges"
+      redirect_to root_path
+    end
+  end
   def index
     @subscribers = Subscriber.all
   end
@@ -70,6 +77,8 @@ class SubscribersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_subscriber
       @subscriber = Subscriber.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to root_path, notice:"Subscriber not found"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
