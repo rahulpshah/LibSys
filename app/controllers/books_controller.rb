@@ -29,7 +29,7 @@ class BooksController < ApplicationController
         @books = Book.where(isbn: params[:search])
       elsif (params[:search_option] == "name")
         @books = Book.where("name ILIKE '%#{params[:search]}%'")
-      elsif (params[:search_option] == "authors")
+      elsif (params[:search_option] == "description")
         @books = Book.where("description ILIKE '%#{params[:search]}%'")
       else
         @books = Book.where("authors ILIKE '%#{params[:search]}%'")
